@@ -1,0 +1,133 @@
+<html>
+  <body>
+    <style>
+      tr td {
+      width: 50px;
+      height: 50px;
+      border: 1px solid #d8d8d8;
+      text-align: center;
+      }
+    </style>
+    <div id="container">
+      <table>
+	<th></th>
+	<tr>
+	  <td id="block-0"></td>
+	  <td id="block-1"></td>
+	  <td id="block-2"></td>
+	</tr>
+	<tr>
+	  <td id="block-3"></td>
+	  <td id="block-4"></td>
+	  <td id="block-5"></td>
+	</tr>
+	<tr>
+	  <td id="block-6"></td>
+	  <td id="block-7"></td>
+	  <td id="block-8"></td>
+	</tr>
+      </table>
+    </div>
+    <script>
+      var array = [0,0,0,0,0,0,0,0,0];
+      document.addEventListener("keydown",function(e){
+      var
+      ENTER = 13,
+      LEFT = 37,
+      RIGHT = 39,
+      UP = 38,
+      DOWN = 40,
+      LIMIT = 9;
+      var getNumber = function() {
+      return parseInt(Math.random()*10,10);
+      };
+      var getRandomIndex = function() {
+      var length = array.length;
+      var index = parseInt(Math.random() * (length - 1),10);
+      if(array[index] === 0) {
+      return index;
+      }else {
+      getRandomIndex()
+      }
+      };
+      var addNumber = function() {
+      if(array.indexOf(0) !== -1) {
+      array[getRandomIndex()] = getNumber();
+      }
+      else {
+      console.log("Game Over");
+      }
+      };
+      var shiftLeft = function() {
+      array[0] = array[0] + array[1] + array[2];
+      array[3] = array[3] + array[4] + array[5];
+      array[6] = array[6] + array[7] + array[8];
+      array[1] = array[2] = array[4] = array[5] = array[7] = array[8] = 0;
+      console.log(array);
+      };
+      var shiftRight = function() {
+      array[2] = array[0] + array[1] + array[2];
+      array[5] = array[3] + array[4] + array[5];
+      array[8] = array[6] + array[7] + array[8];
+      array[1] = array[0] = array[4] = array[3] = array[7] = array[6] = 0;
+      console.log(array);
+      };
+      var shiftUp = function() {
+      array[0] = array[0] + array[3] + array[6];
+      array[1] = array[1] + array[4] + array[7];
+      array[2] = array[2] + array[5] + array[8];
+      array[3] = array[6] = array[4] = array[5] = array[7] = array[8] = 0;
+      console.log(array);
+      };
+      var shiftDown = function() {
+      array[6] = array[0] + array[3] + array[6];
+      array[7] = array[1] + array[4] + array[7];
+      array[8] = array[2] + array[5] + array[8];
+      array[0] = array[3] = array[1] = array[4] = array[2] = array[5] = 0;
+      console.log(array);
+      };
+      var renderNumbers = function() {
+      document.getElementById("block-0").textContent = array[0];
+      document.getElementById("block-1").textContent = array[1];
+      document.getElementById("block-2").textContent = array[2];
+      document.getElementById("block-3").textContent = array[3];
+      document.getElementById("block-4").textContent = array[4];
+      document.getElementById("block-5").textContent = array[5];
+      document.getElementById("block-6").textContent = array[6];
+      document.getElementById("block-7").textContent = array[7];
+      document.getElementById("block-8").textContent = array[8];
+      };
+      switch(e.keyCode) {
+      case LEFT: console.log("Left pressed");
+      shiftLeft();
+      addNumber();
+      renderNumbers();
+      console.log(array);
+      break;
+      case UP: console.log("UP pressed");
+      shiftUp();
+      addNumber();
+      renderNumbers();
+      console.log(array);
+      break;
+      case RIGHT: console.log("RIGHT pressed");
+      shiftRight();
+      addNumber();
+      renderNumbers();
+      console.log(array);
+      break;
+      case DOWN: console.log("DOWN pressed");
+      shiftDown();
+      addNumber();
+      renderNumbers();
+      console.log(array);
+      break;
+      case ENTER: console.log("ENTER pressed");
+      break;
+      default: console.log("Other key pressed");
+      break;
+      }
+      });
+    </script>
+  </body>
+</html>
